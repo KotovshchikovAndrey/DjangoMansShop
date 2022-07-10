@@ -1,0 +1,36 @@
+{% extends 'app_shop/base.html' %}
+{% load static %}
+
+{% block main %}
+    <section class="auth">
+        <form class="header-search-form flex" action="">
+            <input class="header-searc-input" type="text">
+            <button class="header-search-btn">Искать</button>
+        </form>
+        <div class="container">
+            <h2 class="auth-title">{{ title }}</h2>
+            {% if title == 'Сброс Пароля' %}
+            <p class="auth-title">Введите Email для отправки письма для сброса пороля</p>
+            {% endif %}
+            <form class="auth-form flex" action="{{ url }}" method="post">
+                {% csrf_token %}
+                {% for i in form %}
+                <div class="form-input-wrap flex">
+                    <label class="auth-form-label" for="{{ i.id_for_label }}">{{ i.label }}</label>
+                    {{ i }}
+                </div>
+                {% endfor %}
+                <button class="auth-form-btn">{{ action }}</button>
+            </form>
+            {% if action == 'Авторизироваться' %}
+            <a class="auth-link" href="{% url 'register' %}">У вас нет аккаунта? Зарегистрируйтесь!</a>
+            <a class="auth-link" href="{% url 'reset' %}">Забыли Пароль?</a>
+            {% endif %}
+            <div class="auth-errors flex">
+                {% for error in errors %}
+                    <p class="auth-error-text">{{ error }}</p>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %}

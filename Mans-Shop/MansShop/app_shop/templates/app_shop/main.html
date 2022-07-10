@@ -1,0 +1,133 @@
+{% extends 'app_shop/base.html' %}
+{% load static %}
+
+{% block main %}
+    <section class="hero">
+        <form class="header-search-form flex" action="">
+            <input class="header-searc-input" type="text">
+            <button class="header-search-btn">Искать</button>
+        </form>
+        <div class="container hero-container flex">
+            <div class="hero-aside flex">
+                <h2 class="hero-title">
+                    PORTEN
+                </h2>
+                <p class="hero-city">
+                    санкт-петербург
+                </p>
+            </div>
+            <h1 class="hero-main-title">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Purus interdum purus, est tortor pulvinar ut in.
+                Fringilla a diam enim sed justo, sed iaculis sagittis.
+                Tortor id eu interdum nec ut iaculis.
+                Penatibus ullamcorper ultricies morbi ipsum sem metus pharetra, mi.
+                Tortor nibh magna feugiat id nunc, dui nisl viverra.
+            </h1>
+        </div>
+    </section>
+    <section class="new-collection">
+        <div class="new-collection-wrap flex">
+            <div class="new-collection-season">
+                <h2 class="new-collection-season-title">
+                    СЕЗОН 2020/21
+                </h2>
+                <ul class="new-collection-season-list list-reset flex">
+                    {% for product in new_collection %}
+                    <li class="new-collection-season-item">
+                        <article class="article">
+                            <a href="{{ product.get_absolute_url }}"><img class="article-img" src="{{ MEDIA_URL }}{{ product.photo.url }}" alt="фото товара"></a>
+                            <h2 class="article-title">
+                                {{ product.title }}
+                            </h2>
+                            <p class="article-price">
+                                {{ product.get_price }} руб.
+                            </p>
+                        </article>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="new-collection-aside">
+                <div class="new-collection-aside-wrap flex">
+                    <h2 class="new-collection-aside-title">
+                        Новая коллекция
+                    </h2>
+                    <a href="{% url 'new_collection' %}">
+                        <button class="new-collection-aside-button">
+                            Каталог
+                        </button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="collection-2018">
+        <div class="collection-2018-wrap flex">
+            <img class="collection-2018-img" src="{% static 'img/Rectangle 9.png' %}" alt="коллекция 2018">
+            <div class="collection-2018-descr">
+                <div class="collection-2018-container">
+                    <h2 class="collection-2018-title">
+                        коллекция 2018
+                    </h2>
+                    <p class="collection-2018-text">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                        Non rutrum ornare ut mattis habitant dui arcu.
+                        Sagittis amet nunc ut neque quis nibh arcu.
+                        Vivamus vestibulum nisi et venenatis sed scelerisque magna consectetur.
+                        Amet convallis quis gravida facilisis vulputate.
+                        Faucibus facilisi habitasse ipsum interdum dictum aliquet.
+                        Velit quis ullamcorper pulvinar nulla malesuada integer.
+                        Aenean praesent viverra nulla nullam natoque volutpat curabitur auctor.
+                        Viverra viverra ullamcorper scelerisque risus dignissim egestas.
+                        Id aliquam a aliquam egestas leo orci pharetra sed diam.
+                    </p>
+                    <div class="collection-2018-btn-wrap flex">
+                        <a class="collection-2018-link" href="{% url 'recommended' %}">
+                            <button class="collection-2018-btn">
+                                посмотреть коллекцию
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="new-arrivals">
+        <div class="container">
+            <h2 class="new-arrivals-title">
+                новые поступления
+            </h2>
+            <ul class="new-arrivals-list list-reset flex">
+                {% for product in products %}
+                <li class="new-arrivals-item">
+                    <article class="article">
+                        <a href="{{ product.get_absolute_url }}"><img class="article-img" src="{{ MEDIA_URL }}{{ product.photo.url }}" alt="фото товара"></a>
+                        <h2 class="article-title">
+                            {{ product.title }}
+                        </h2>
+                        <p class="article-price">
+                            {{ product.get_price }} руб.
+                        </p>
+                    </article>
+                </li>
+                {% endfor %}
+            </ul>
+            <a class="new-arrivals-link" href="{% url 'products' %}"><button class="new-arrivals-btn">Посмотреть весь ассортимент</button></a>
+        </div>
+    </section>
+    <section class="brands">
+        <div class="container">
+            <h2 class="brands-title">
+                наши бренды
+            </h2>
+            <ul class="brands-list list-reset flex">
+                {% for brand in brands %}
+                <li class="brands-item">
+                    <img class="brands-item-img" src="{{ MEDIA }}{{ brand.img.url }}" alt="бренд">
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </section>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'app_shop/base.html' %}
+{% load static %}
+
+{% block main %}
+<section class="product">
+    <div class="container product-container flex">
+        <div class="product-title-wrap flex">
+            <img class="product-img" src="{{ MEDIA_URL }}{{ product.photo.url }}" alt="фото товара">
+            <h2 class="product-title product-text">{{ product.title }}</h2>
+        </div>
+        <div class="product-info">
+            <p class="product-descr product-text">
+                {{ product.description }}
+            </p>
+            <p class="product-price product-text">
+                <span>Цена:</span>{{ product.get_price }} рублей
+            </p>
+            <a class="product-cart" href="">
+                <a href="{% url 'add_cart' product.pk  %}"><button class="product-cart-btn product-text">Добавить в карзину</button></a>
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

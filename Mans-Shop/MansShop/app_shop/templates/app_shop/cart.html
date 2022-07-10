@@ -1,0 +1,60 @@
+{% extends 'app_shop/base.html' %}
+{% load static %}
+
+{% block main %}
+<section class="cart">
+    <form class="header-search-form flex" action="">
+        <input class="header-searc-input" type="text">
+        <button class="header-search-btn">Искать</button>
+    </form>
+    <div class="container">
+        <ul class="cart-list list-reset flex">
+            {% if not page_obj %}
+            <h2 class="cart-item-title cart-text">Корзина Пуста</h2>
+            {% endif %}
+            {% for cart_product in page_obj %}
+            <li class="cart-item flex">
+                <img class="cart-item-img" src="{{ MEDIA_URL }}{{ cart_product.get_photo }}" alt="фото товара">
+                <div class="cart-item-info flex">
+                    <h2 class="cart-item-title cart-text">{{ cart_product.get_title }}</h2>
+                    <a class="cart-item-delete cart-text" href="{% url 'remove_cart' cart_product.pk %}">Удалить товар из корзины</a>
+                </div>
+                <div class="cart-item-quantity flex">
+                    <a class="quantity-left cart-text" id="quantity-left" href="{% url 'remove_quantity' cart_product.pk %}">-</a>
+                    <div class="quantity-middle cart-text" id="quantity-middle">{{ cart_product.quantity }}</div>
+                    <a class="quantity-right cart-text" id="quantity-right" href="{% url 'add_quantity' cart_product.pk %}">+</a>
+                </div>
+                <p class="cart-item-price cart-text">{{ cart_product.final_price }} рублей</p>
+            </li>
+            {% endfor %}
+        </ul>
+        {% if num_pages != 1 %}
+        <div class="pagination">
+            <span class="page-links flex">
+                {% if page_obj.has_previous %}
+                    <a class="pagination-item-link" href="{{ url }}?page={{ page_obj.previous_page_number }}">назад</a>
+                {% endif %}
+                <ul class="pagination-list list-reset flex">
+                    {% for page in page_obj.paginator.page_range %}
+                    <li class="pagination-item">
+                        {% if page == page_obj.number %}
+                            <p class="pagination-item-link active-page" href="{{ url }}?page={{ page }}">
+                                {{ page }}
+                            </p>
+                        {% elif page >= page_obj.number|add:-2 and page <= page_obj.number|add:2 %}
+                            <a class="pagination-item-link" href="{{ url }}?page={{ page }}">
+                                {{ page }}
+                            </a>
+                        {% endif %}
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% if page_obj.has_next %}
+                    <a class="pagination-item-link not-margin" href="{{ url }}?page={{ page_obj.next_page_number }}">вперед</a>
+                {% endif %}
+            </span>
+        </div>
+    </div>
+    {% endif %}
+</section>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'app_shop/base.html' %}
+{% load static %}
+
+{% block main %}
+    <section class="auth">
+        <form class="header-search-form flex" action="">
+            <input class="header-searc-input" type="text">
+            <button class="header-search-btn">Искать</button>
+        </form>
+        <div class="container">
+            <h2 class="auth-title">{{ title }}</h2>
+            <form class="auth-form flex" action="{{ url }}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% if user.photo %}
+                <img class="form-profile-photo" src="{{ MEDIA_URL }}{{ user.photo.url }}" alt="фото юзера">
+                {% endif %}
+                <div class="form-input-wrap flex">
+                    <label class="auth-form-label" for="{{ form.photo.id_for_label }}">{{ form.photo.label }}</label>
+                    {{ form.photo }}
+                </div>
+                <div class="form-input-wrap flex">
+                    <label class="auth-form-label" for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
+                    {{ form.username }}
+                </div>
+                <div class="form-input-wrap flex">
+                    <label class="auth-form-label" for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
+                    {{ form.email }}
+                </div>
+                <div class="form-input-wrap flex">
+                    <label class="auth-form-label">Баланс</label>
+                    <label class="auth-form-label">{{ user.balans }}</label>
+                </div>
+                <button class="auth-form-btn">{{ action }}</button>
+            </form>
+            <div class="auth-errors flex">
+                {% for error in errors %}
+                    <p class="auth-error-text">{{ error }}</p>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %}

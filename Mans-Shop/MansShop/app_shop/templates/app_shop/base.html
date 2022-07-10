@@ -1,0 +1,165 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=PT+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script src="{% static 'js/app.js' %}"></script>
+    <title>{{ title }}</title>
+</head>
+<body>
+    <header class="header">
+        <div class="header-aside">
+            <div class="container header-container flex">
+                <div class="header-contacts flex">
+                    <img class="header-contacts-img" src="{% static 'img/telephone.svg' %}" alt="телефон">
+                    <p class="header-contacts-text header-text">
+                        8 (812) 123-45-67    |    Работаем 7 дней в неделю    |    9:00 — 18:00  
+                    </p>
+                </div>
+                <div class="header-auth flex">
+                    {% if not user.is_authenticated %}
+                    <img class="header-auth-img" src="{% static 'img/ic_sharp-log-in.svg' %}" alt="Авторизация">
+                    <a class="header-auth-text header-text" href="{% url 'login' %}">
+                        Войти / Регистрация
+                    </a>
+                    {% else %}
+                    <p class="header-auth-text header-text">
+                        Приветсвуем, {{ user.username }}!
+                    </p>
+                    <a class="header-auth-text header-text" href="{% url 'logout' %}">
+                        выйти
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="header-navigation">
+            <div class="container header-container flex">
+                <a class="header-logo" href="{% url 'main' %}">PORTEN</a>
+                <img class="header-burger-img" src="{% static 'img/hamburgermenu_120234.svg' %}" alt="бургер меню">
+                <nav class="header-nav">
+                    <ul class="header-nav-list list-reset flex">
+                        <li class="header-nav-item">
+                            <a class="header-nav-link" href="#">
+                                Понравилось
+                            </a>
+                        </li>
+                        <li class="header-nav-item">
+                            <a class="header-nav-link" href="{% url 'profile' %}">
+                                личный кабинет
+                            </a>
+                        </li>
+                        <li class="header-nav-item">
+                            <a class="header-nav-link" href="#">
+                                настройки
+                            </a>
+                        </li>
+                        <li class="header-nav-item">
+                            <a class="header-nav-link" href="{% url 'cart' %}">
+                                <img class="header-nav-img" src="{% static 'img/bx_bx-cart.svg' %}" alt="карзина">
+                            </a>
+                        </li>
+                        <li class="header-nav-item search">
+                            <img src="{% static 'img/gridicons_search.svg' %}" alt="поиск">
+                        </li>
+                    </ul>
+                </nav>
+                <nav class="header-burger-nav">
+                    <ul class="header-burger-nav-list list-reset flex">
+                        <li class="header-nav-item">
+                            <img class="header-burger-close-img" src="{% static 'img/1485969927-6-cross_78905.svg' %}" alt="крестик">
+                        </li>
+                        <li class="header-nav-item">
+                            <a class="header-nav-link" href="#">
+                                Понравилось
+                            </a>
+                        </li>
+                        <li class="header-nav-item">
+                            <a class="header-nav-link" href="#">
+                                личный кабинет
+                            </a>
+                        </li>
+                        <li class="header-nav-item">
+                            <a class="header-nav-link" href="#">
+                                настройки
+                            </a>
+                        </li>
+                        <li class="header-nav-item">
+                            <a class="header-nav-link" href="#">
+                                <img class="header-nav-img" src="{% static 'img/bx_bx-cart.svg' %}" alt="карзина">
+                            </a>
+                        </li>
+                        <li class="header-nav-item search">
+                            <img src="{% static 'img/gridicons_search.svg' %}" alt="поиск">
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+    <main class="main">
+        {% block main %}
+        {% endblock %}
+    </main>
+    <footer class="footer">
+        <div class="container footer-container flex">
+            <div class="footer-about">
+                <h2 class="footer-about-title">
+                    О магазине
+                </h2>
+                <p class="footer-about-descr">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                    Mi semper viverra nunc cursus tortor lectus nunc nulla nibh. 
+                    Egestas amet consectetur vel vitae aliquam dictum suspendisse. 
+                    Lobortis eget consequat, tellus et et sed turpis. 
+                    Pretium quisque vitae, amet, porttitor odio ultricies massa pharetra leo. 
+                    Et ipsum urna fames in sit mi ultrices nisi, nunc.
+                </p>
+            </div>
+            <div class="footer-cats">
+                <h2 class="footer-cats-title">
+                    Категории
+                </h2>
+                <ul class="footer-cats-list list-reset flex">
+                    <li class="footer-cats-item">
+                        часы
+                    </li>
+                    <li class="footer-cats-item">
+                        браслеты
+                    </li>
+                    <li class="footer-cats-item">
+                        ремни
+                    </li>
+                    <li class="footer-cats-item">
+                        ювелирные изделия
+                    </li>
+                    <li class="footer-cats-item">
+                        запонки
+                    </li>
+                </ul>
+            </div>
+            <div class="footer-mailing-lists">
+                <h2 class="footer-mailing-lists-title"> 
+                    Рассылка
+                </h2>
+                <p class="footer-mailing-lists-decsr">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                    Mi semper viverra nunc cursus tortor lectus nunc nulla nibh.
+                </p>
+                <form class="footer-form flex" action="">
+                    <input class="footer-form-input" type="text" placeholder="Ваша почта">
+                    <button class="footer-form-btn">ПОДПИСАТЬСЯ</button>
+                </form>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
