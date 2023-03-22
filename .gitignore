@@ -1,0 +1,6 @@
+**/media/**
+**/migrations/**
+**/.vscode/**
+**/__pycache__/
+**/venv/**
+.env
